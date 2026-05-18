@@ -13,11 +13,12 @@ interface PyramidShapeProps {
 export function PyramidShape({ isDarkMode, scale = 1 }: PyramidShapeProps) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Define pyramid vertices (square base pyramid)
+  // Define pyramid vertices (square base pyramid with equilateral triangle faces)
   const { faces, tileSize } = useMemo(() => {
-    const height = 2.5 * scale;
     const baseSize = 2 * scale;
     const half = baseSize / 2;
+    // For equilateral triangle faces: height = baseSize / √2
+    const height = baseSize / Math.sqrt(2);
 
     // Apex at top
     const apex = new THREE.Vector3(0, height, 0);

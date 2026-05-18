@@ -45,7 +45,7 @@ export function MirrorTile({
   }, [isDarkMode, baseColor]);
 
   const geometry = useMemo(() => {
-    if (points.length < 3) return null;
+    if (!points || points.length < 3) return null;
 
     const shape = new THREE.Shape();
     shape.moveTo(points[0].x, points[0].y);
