@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { PyramidShape } from "./pyramid-shape";
-import { StarburstEffect } from "./starburst-effect";
 
 interface SceneProps {
   isDarkMode: boolean;
@@ -56,8 +55,7 @@ export function Scene({ isDarkMode, spotifyOpen, onPointerDown, onPointerUp }: S
       {/* Main pyramid */}
       <PyramidShape isDarkMode={isDarkMode} scale={pyramidScale} />
 
-      {/* Starburst effect */}
-      <StarburstEffect isDarkMode={isDarkMode} />
+
 
       {/* Orbit controls */}
       <OrbitControls

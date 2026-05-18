@@ -7,7 +7,7 @@ import * as THREE from "three";
 interface MirrorTileProps {
   position: [number, number, number];
   rotation: [number, number, number];
-  size: number;
+  points: THREE.Vector2[];
   isDarkMode: boolean;
   baseColor?: THREE.Color;
 }
@@ -15,7 +15,7 @@ interface MirrorTileProps {
 export function MirrorTile({
   position,
   rotation,
-  size,
+  points,
   isDarkMode,
   baseColor,
 }: MirrorTileProps) {
@@ -44,6 +44,24 @@ export function MirrorTile({
     }
   }, [isDarkMode, baseColor]);
 
+  const geometry = useMemo(() => {
+    if (points.length < 3) return null;
+
+    const shape = new THREE.Shape();
+    shape.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      shape.lineTo(points[i].x, points[i].y);
+    }
+    shape.closePath();
+
+    const extrudeSettings = {
+      depth: 0.008,
+      bevelEnabled: false,
+    };
+
+    return new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  }, [points]);
+
   const timeOffset = useMemo(() => Math.random() * Math.PI * 2, []);
 
   useFrame((state) => {
@@ -54,9 +72,10 @@ export function MirrorTile({
     }
   });
 
+  if (!geometry) return null;
+
   return (
-    <mesh ref={meshRef} position={position} rotation={rotation}>
-      <boxGeometry args={[size * 0.95, size * 0.95, size * 0.1]} />
+    <mesh ref={meshRef} position={position} rotation={rotation} geometry={geometry}>
       <meshStandardMaterial
         color={color}
         metalness={metalness}
