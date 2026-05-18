@@ -13,38 +13,36 @@ interface PyramidShapeProps {
 export function PyramidShape({ isDarkMode, scale = 1 }: PyramidShapeProps) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Define pyramid vertices (square base pyramid with equilateral triangle faces)
+  // Define a true triangular pyramid / tetrahedron
   const { faces, tileSize } = useMemo(() => {
-    const baseSize = 2 * scale;
-    const half = baseSize / 2;
-    // For equilateral triangle faces: height = baseSize / √2
-    const height = baseSize / Math.sqrt(2);
+    const sideLength = 2 * scale;
 
-    // Apex at top
-    const apex = new THREE.Vector3(0, height, 0);
+    // Regular tetrahedron proportions
+    const tetraHeight = Math.sqrt(2 / 3) * sideLength;
+    const baseRadius = sideLength / Math.sqrt(3);
 
-    // Base vertices (square)
-    const b1 = new THREE.Vector3(-half, 0, -half);
-    const b2 = new THREE.Vector3(half, 0, -half);
-    const b3 = new THREE.Vector3(half, 0, half);
-    const b4 = new THREE.Vector3(-half, 0, half);
+    // Apex
+    const apex = new THREE.Vector3(0, tetraHeight, 0);
 
-    // Four triangular faces
-    const pyramidFaces: [THREE.Vector3, THREE.Vector3, THREE.Vector3][] = [
-      [apex, b1, b2], // Front
-      [apex, b2, b3], // Right
-      [apex, b3, b4], // Back
-      [apex, b4, b1], // Left
+    // Base vertices (equilateral triangle)
+    const b1 = new THREE.Vector3(0, 0, baseRadius);
+    const b2 = new THREE.Vector3(-sideLength / 2, 0, -baseRadius / 2);
+    const b3 = new THREE.Vector3(sideLength / 2, 0, -baseRadius / 2);
+
+    // Three triangular side faces
+    const sideFaces: [THREE.Vector3, THREE.Vector3, THREE.Vector3][] = [
+      [apex, b1, b2],
+      [apex, b2, b3],
+      [apex, b3, b1],
     ];
 
-    // Base face (two triangles to form square)
-    const baseFaces: [THREE.Vector3, THREE.Vector3, THREE.Vector3][] = [
+    // Triangular base face
+    const baseFace: [THREE.Vector3, THREE.Vector3, THREE.Vector3][] = [
       [b1, b3, b2],
-      [b1, b4, b3],
     ];
 
     return {
-      faces: [...pyramidFaces, ...baseFaces],
+      faces: [...sideFaces, ...baseFace],
       tileSize: 0.08 * scale,
     };
   }, [scale]);
@@ -53,8 +51,10 @@ export function PyramidShape({ isDarkMode, scale = 1 }: PyramidShapeProps) {
     if (groupRef.current) {
       // Slow continuous rotation
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+
       // Subtle tilt animation
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.05 + 0.1;
+      groupRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 0.1) * 0.05 + 0.1;
     }
   });
 
