@@ -1,6 +1,6 @@
 "use client";
 
-import { DiscoSpotifyIcon } from "./disco-spotify-icon";
+import { SpotifyLogo } from "./spotify-logo";
 
 interface SpotifyToggleProps {
   isActive: boolean;
@@ -15,7 +15,7 @@ export function SpotifyToggle({ isActive, onToggle, isDarkMode }: SpotifyToggleP
       aria-label={isActive ? "Hide Spotify player" : "Show Spotify player"}
       aria-pressed={isActive}
       className={`
-        relative w-10 h-10 rounded-lg flex items-center justify-center p-2
+        relative w-10 h-10 rounded-lg flex items-center justify-center
         transition-all duration-300 ease-out
         ${isDarkMode 
           ? `bg-white/10 hover:bg-white/20 border ${isActive ? "border-white/40" : "border-white/20"}` 
@@ -27,10 +27,9 @@ export function SpotifyToggle({ isActive, onToggle, isDarkMode }: SpotifyToggleP
         active:scale-95
       `}
     >
-      <DiscoSpotifyIcon 
+      <SpotifyLogo 
         active={isActive} 
-        isDarkMode={isDarkMode}
-        className={`w-full h-full transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-60"}`}
+        className={`w-6 h-6 transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-70"}`}
       />
     </button>
   );
