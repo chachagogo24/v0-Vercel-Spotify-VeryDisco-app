@@ -1,15 +1,26 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const siteTitle = 'Very Disco'
+const socialTitle = 'Very Disco | Discomorphism Vercel'
+const siteDescription =
+  'This is an unofficial project created by fans. Interactive 3D disco-ball Vercel visualization'
 
 export const metadata: Metadata = {
-  title: 'Mirrored Pyramid',
-  description: 'Interactive 3D disco-ball pyramid visualization',
+  title: siteTitle,
+  description: siteDescription,
   generator: 'v0.app',
+  openGraph: {
+    title: socialTitle,
+    description: siteDescription,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: socialTitle,
+    description: siteDescription,
+  },
   icons: {
     icon: [
       {
