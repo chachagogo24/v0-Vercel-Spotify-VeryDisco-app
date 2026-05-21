@@ -1,6 +1,8 @@
-# Mirrored Pyramid
+# Discomorphism Vercel
 
-Interactive 3D disco-ball pyramid built with Next.js, React Three Fiber, Three.js, and Tailwind CSS.
+This is an unofficial project created by fans.
+
+Interactive 3D mirrored disco pyramid built with Next.js, React Three Fiber, Three.js, and Tailwind CSS.
 
 Live demo:  
 https://v0-vercel-spotify-very-disco-app.vercel.app/
@@ -12,7 +14,7 @@ https://v0-vercel-spotify-very-disco-app.vercel.app/
 - Spotify embed toggle
 - Interactive cursor ring
 
-# v0-Vercel-Spotify-VeryDisco-app
+## v0-Vercel-Spotify-VeryDisco-app
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
